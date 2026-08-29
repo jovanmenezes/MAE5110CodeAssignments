@@ -1,7 +1,8 @@
 import numpy as np
 
 
-def dynamics(t, state, params):
+def dynamics(t, state):
+    params = generate_params()
     gravity = params["gravity"]
     length = params["length"]
     mass = params["mass"]
@@ -23,14 +24,15 @@ def generate_params():
     params = {
         "gravity": 9.81,  # gravity m/s^2)
         "length": 1,  # rod length (m)
-        "mass": 1,  # point mass at end of rod (kg)
-        "damping_coeff": 0.1,  # damping coefficient (kg*m^2/s)
+        "mass": 0.2,  # point mass at end of rod (kg)
+        "damping_coeff": 0.0,  # damping coefficient (kg*m^2/s)
     }
     return params
 
 
-def calculate_energy(state, params):
+def calculate_energy(state):
     """Compute energies for a state ``(2,)`` or trajectory ``(2, N)``."""
+    params = generate_params()
     gravity = params["gravity"]
     length = params["length"]
     mass = params["mass"]

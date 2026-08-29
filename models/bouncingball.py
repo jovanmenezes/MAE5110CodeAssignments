@@ -1,6 +1,7 @@
 import numpy as np
 
-def dynamics(t, state, params):
+def dynamics(t, state):
+    params = generate_params()
     gravity = params["gravity"]
     cor = params["Coefficient_of_Restitution"]
 
@@ -11,8 +12,18 @@ def dynamics(t, state, params):
     state_derivative = np.array([velocity, acceleration])
     return state_derivative
 
-def calculate_energy(state, params):
+def generate_params():
+    params = {
+        "gravity": 9.81,  # gravity m/s^2)
+        "Coefficient_of_Restitution": 0.8,  # constant that determines how much energy is dissipated upon collision
+        "radius": 0.05,  # radius of the ball (m)
+        "mass": 0.05 # mass of the ball (kg)
+        }
+    return params
+
+def calculate_energy(state):
     """Compute energies for a state ``(2,)`` or trajectory ``(2, N)``."""
+    params = generate_params()
     gravity = params["gravity"]
     mass = params["mass"]
 
