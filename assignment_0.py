@@ -4,21 +4,21 @@ import matplotlib.pyplot as plt
 
 # from models import pendulum as model
 from models import bouncingball as model
-# from integrators import explicit_euler as integrator
-from integrators import rk4 as integrator
+from integrators import explicit_euler as integrator
+# from integrators import rk4 as integrator
 
 # Basic simulation of the pendulum
 
 # some set-up
 # initial_state = np.array([np.pi / 4, 0.0])
-initial_state = np.array([10 , 0.0])
+initial_state = np.array([0, 10, -3, 4.0])
 
 timestep = 1e-5                 # max_timestep = 0.000709 (Euler)       max_timestep = 0.22049 (RK4)
 sim_time = 5.0
 
 n_timesteps = int(sim_time / timestep) + 1
 time_traj = np.arange(n_timesteps) * timestep
-state_traj = np.zeros((2, n_timesteps))
+state_traj = np.zeros((initial_state.shape[0], n_timesteps))
 state_traj[:, 0] = initial_state
 
 # simulation loop
@@ -30,9 +30,9 @@ for step, t in enumerate(time_traj[:-1]):
     state_traj[:, step + 1] = integrator(x_k = state_traj[:, step], h = timestep, t = t, model = model)
     
     params = model.generate_params()
-    if state_traj[0, step + 1] < params["radius"]:
-        state_traj[0, step + 1] = params["radius"]
-        state_traj[1, step + 1] = - params["Coefficient_of_Restitution"] * state_traj[1, step]
+    if state_traj[1, step + 1] < params["radius"]:
+        state_traj[1, step + 1] = params["radius"]
+        state_traj[3, step + 1] = - params["Coefficient_of_Restitution"] * state_traj[3, step]
                 
     # print(min(timeit.repeat(
     #             lambda: integrator(x_k = state_traj[:, step], h = timestep, t = t, model = model),
@@ -77,10 +77,10 @@ plt.show()
 # plt.show()
 
 plt.figure()
-plt.plot(time_traj, state_traj[0,:], label="Position")
+plt.plot(state_traj[0,:], state_traj[1,:], label="Position")
 plt.ylabel("Vertical Position (m)")
-plt.xlabel("Time (s)")
-plt.title("Position vs. Time for a bouncing ball")
+plt.xlabel("Horizontal Position (m)")
+plt.title("x-y Position for a bouncing ball")
 plt.legend()
 plt.tight_layout()
 plt.show()
