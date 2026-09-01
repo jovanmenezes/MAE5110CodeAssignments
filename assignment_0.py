@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 
 # from models import pendulum as model
 from models import bouncingball as model
-from integrators import explicit_euler as integrator
-# from integrators import rk4 as integrator
+# from integrators import explicit_euler as integrator
+from integrators import rk4 as integrator
 
 # Basic simulation of the pendulum
 
 # some set-up
 # initial_state = np.array([np.pi / 4, 0.0])
-initial_state = np.array([0, 10, -3, 4.0])
+initial_state = np.array([0, 10, -30.0, 40.0])
 
 timestep = 1e-5                 # max_timestep = 0.000709 (Euler)       max_timestep = 0.22049 (RK4)
 sim_time = 5.0

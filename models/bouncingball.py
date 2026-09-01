@@ -1,13 +1,19 @@
 import numpy as np
+import math
 
 def dynamics(t, state):
     params = generate_params()
     gravity = params["gravity"]
+    mass = params["mass"]
+    mu_fluid = params["mu_fluid"]
+    radius = params["radius"]
+    k = 6*math.pi*mu_fluid*radius
+    mu = k/mass
     
     vx = state[2]
     vy = state[3]
-    ax = 0
-    ay = - gravity
+    ax = - mu * vx * math.sqrt(vx**2 + vy**2)
+    ay = - gravity - mu * vy * math.sqrt(vx**2 + vy**2)
 
     state_derivative = np.array([vx, vy, ax, ay])
     return state_derivative
@@ -17,7 +23,8 @@ def generate_params():
         "gravity": 9.81,  # gravity m/s^2)
         "Coefficient_of_Restitution": 0.8,  # constant that determines how much energy is dissipated upon collision
         "radius": 0.05,  # radius of the ball (m)
-        "mass": 0.5 # mass of the ball (kg)
+        "mass": 0.5, # mass of the ball (kg)
+        "mu_fluid": 0.0000181
         }
     return params
 
