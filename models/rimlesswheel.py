@@ -22,7 +22,7 @@ def generate_params():
     params = {
         "gravity": 9.81,  # gravity m/s^2)
         "mass": 0.2,  # point mass at the center of the wheel (kg)
-        "gamma": np.pi/180*30,  # slope of the ground (rad)
+        "gamma": np.pi/10,  # slope of the ground (rad)
         "alpha": np.pi/180*(180/6),  # half angle of the legs (rad)
         "radius": 0.1,  # radius of the wheel (m)
     }
