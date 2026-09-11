@@ -1,8 +1,6 @@
 import numpy as np
 
-
-def dynamics(t, state):
-    params = generate_params()
+def dynamics(t, state, params):
     gravity = params["gravity"]
     radius = params["radius"]
     mass = params["mass"]
@@ -17,21 +15,8 @@ def dynamics(t, state):
     state_derivative = np.array([angular_velocity, angular_acceleration])
     return state_derivative
 
-
-def generate_params():
-    params = {
-        "gravity": 9.81,  # gravity m/s^2)
-        "mass": 0.2,  # point mass at the center of the wheel (kg)
-        "gamma": np.pi/10,  # slope of the ground (rad)
-        "alpha": np.pi/180*(180/6),  # half angle of the legs (rad)
-        "radius": 0.1,  # radius of the wheel (m)
-    }
-    return params
-
-
-def calculate_energy(state):
+def calculate_energy(state, params):
     """Compute energies for a state ``(2,)`` or trajectory ``(2, N)``."""
-    params = generate_params()
     gravity = params["gravity"]
     radius = params["radius"]
     mass = params["mass"]
