@@ -5,10 +5,10 @@ def dynamics(t, state):
     params = generate_params()
     gravity = params["gravity"]
     mass = params["mass"]
-    mu_fluid = params["mu_fluid"]
     radius = params["radius"]
-    k = 6*math.pi*mu_fluid*radius
-    mu = k/mass
+    Drag_Coefficient = params["Drag_Coefficient"]
+    density = params["density"]
+    mu = 0.5 * Drag_Coefficient * density * math.pi * radius**2 / mass
     
     vx = state[2]
     vy = state[3]
@@ -24,7 +24,8 @@ def generate_params():
         "Coefficient_of_Restitution": 0.8,  # constant that determines how much energy is dissipated upon collision
         "radius": 0.05,  # radius of the ball (m)
         "mass": 0.5, # mass of the ball (kg)
-        "mu_fluid": 0.0000181
+        "Drag_Coefficient": 0.47,  # drag coefficient for a sphere
+        "density": 1.225,  # density of air at sea level (kg/m^3)
         }
     return params
 
